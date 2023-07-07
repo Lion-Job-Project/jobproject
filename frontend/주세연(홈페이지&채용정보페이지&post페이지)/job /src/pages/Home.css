@@ -92,9 +92,30 @@
     padding: 10px 120px 50px 120px;
     height: 100%;
 }
-.content>p{
+.titles{
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
     margin-top: 70px;
+}
+.titles>p{
     font-size: 20px;
+}
+.titles>button{
+    margin-right: 70px;
+    margin-top: 12px;
+    font-size: 17px;
+    background-color: white;
+    border: 1px solid rgb(238, 127, 53);
+    border-radius: 10px;
+    width: 200px;
+    height: 40px;
+    border-radius: 30px;
+}
+.titles>button:hover {
+    border: 1px solid rgb(238, 127, 53);
+    background-color: rgb(238, 127, 53);
+    transition: 0.7s;
 }
 .showcase{
     display: flex;

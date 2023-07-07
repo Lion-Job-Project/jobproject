@@ -18,20 +18,25 @@ function Home(){
                    <button type="submit">⌕</button>
                </div>
                 <div className='join'>
-                    {/*클릭시 나올 페이지 추가해야 함*/}
+                    {/*로그인&회원가입&자소서창- 준호님 코드랑 연결해야됨*/}
                    <button type='submit'>로그인</button>
                    <button type="submit">회원가입</button>
                 </div>
             </div>
 
             <div className='banner'>
-               <h2>취업준비의 신세계로(가제)</h2>
+               <h2>구인구직의 신세계로(가제)</h2>
                <p>쉽고 빠르게 확인하는 채용공고</p>
                <button>지금 바로 자소서 작성하기</button>
            </div>
 
              <div className='content'>
-                <p>💡채용 공고 한눈에 모아보기💡</p>
+                <div className='titles'>
+                  <p>💡채용 공고 한눈에 모아보기💡</p>
+                  <button onClick={()=>{
+                     window.open('http://localhost:3000/post','채용공고 올리기','resizable=no width=700 height=650');
+                  }}>공고를 올리고 싶다면?</button>
+                </div>
                 <div className='showcase'>
                 {companys.map((i)=>{
                     return(
