@@ -4,6 +4,21 @@ import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 function Detail(){
+   const [companyName,setCompanyName] = useState(['']);
+   const [posion,setPosion] = useState(['']);
+   const [description, setDescription] = useState(['']);
+   const [application, setApplication] = useState(['']);
+   
+    /*서버내용 추가해야 함*/
+     const getJob = () =>{
+        axios.get()
+        .then(res=>{
+            
+        }) 
+        .catch(e=>{
+        })  
+      }
+
     return (     
     <div className='detail'>
         <p>채용정보</p>
