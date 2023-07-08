@@ -3,7 +3,7 @@ import './Home.css';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
-function Home(){
+function Home(props){
     const navigate = useNavigate();
     const companys =  [1,2,3,4,5,6,7,8,9];
 
@@ -29,7 +29,7 @@ function Home(){
                <a href="http://localhost:3000/">🦁 JOBLION</a>
                <div className='search'>
                    <input type="text" placeholder='확인하고 싶은 회사명을 적어주세요!'onChange={(e)=>{setSerchJob(e)}}></input>
-                   <button type="submit" onClick={()=>{navigate('/detail',{serchJob: serchJob}); serchJob();}}>⌕</button>
+                   <button type="submit" onClick={()=>{navigate('/detail',{serchJob: serchJob}); props.serchJob();}}>⌕</button>
                </div>
                 <div className='join'>
                    <button onClick={()=>{navigate('/login')}}>로그인</button>
@@ -52,10 +52,10 @@ function Home(){
                 </div>
                 <div className='showcase'>
                 {companys.map((i)=>{
-                    getJobTitle(i);
+                    getJobTitle(i); {/*함수 외부에서 들고오는거 다시 해봐야 함 !!!!!!*/}
                     return(
                         <div key={i} className='company'>
-                            <button id={i} onClick={()=>{navigate('/detail',{showJob:id});showJob();}} 
+                            <button id={i} onClick={()=>{navigate('/detail',{showJob:i});props.showJob();}} 
                             >{companyName}{position}</button>
                         </div> 
                     )

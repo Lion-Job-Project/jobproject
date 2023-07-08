@@ -1,29 +1,36 @@
 import React, { useState } from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import './Login.css';
 
 function Header() {
-    return (
-      <header className="headerLogin">
-          <div className='headerleft'>
-              <p><strong>🦁JOBLION </strong></p>
-          </div>
-        <Link to="/">
-          <p>홈페이지</p>
-        </Link>
-      </header>
-    );
-  }
+  return (
+    <header className="headerLogin">
+      <div className="headerleft">
+        <p>
+          <strong>🦁JOBLION </strong>
+        </p>
+      </div>
+      <Link to="/">
+        <p>홈페이지</p>
+      </Link>
+    </header>
+  );
+}
 
 function Body() {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
+  const navigate = useNavigate();
 
   const handleLogin = async () => {
+    if (username.trim() === '' || password.trim() === '') {
+      alert('경고! 아이디와 비밀번호를 입력하세요.');
+      return;
+    }
+
     const loginData = { username, password };
 
     try {
-        //api 주소 받아서 바꿔야함
       const response = await fetch('http://localhost:8080', {
         method: 'POST',
         headers: {
@@ -31,17 +38,20 @@ function Body() {
         },
         body: JSON.stringify(loginData),
       });
-      
+
       if (response.ok) {
         const responseData = await response.json();
-        console.log(responseData); 
-        alert('로그인 성공! 홈화면으로 이동합니다.');
+        console.log(responseData);
+        alert('로그인 성공!');
+        // Redirect to the home page after successful login
+        navigate('/');
       } else {
-        console.error('Login failed'); 
+        console.error('Login failed');
+        alert('로그인 실패! 아이디 또는 비밀번호를 확인하세요.');
       }
     } catch (error) {
       console.error('Error:', error);
-      
+      alert('로그인 실패! 서버와의 연결에 문제가 있습니다.');
     }
   };
 
@@ -77,14 +87,12 @@ function Body() {
                 />
               </div>
               <div className="inputGroup">
-                <Link to= "/">
                 <input
                   type="button"
                   value="로그인"
                   className="loginBTN"
                   onClick={handleLogin}
                 />
-                </Link>
               </div>
             </form>
             <p>좋은 일을 찾으시나요? 회원가입하시고 다양한 혜택을 누리세요!</p>
@@ -122,4 +130,5 @@ function Login() {
     </div>
   );
 }
+
 export default Login;
