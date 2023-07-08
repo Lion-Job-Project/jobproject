@@ -1,4 +1,4 @@
-import React, {useState,useEffect} from 'react';
+import React, {useState} from 'react';
 import './Home.css';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
@@ -7,25 +7,38 @@ function Home(){
     const navigate = useNavigate();
     const companys =  [1,2,3,4,5,6,7,8,9];
 
+    const [companyName,setCompanyName] = useState(['']);
+    const [position,setPosition] = useState(['']);
+    const [serchJob,setSerchJob] = useState(['']);
+
+    const getJobTitle = (i) =>{
+        axios.get('http://localhost:8080/jobposts',{
+            params:{id:{i}}
+        })
+        .then(res=>{
+            setCompanyName(res.data.companyName);
+            setPosition(res.data.position);
+         }) 
+        .catch(e=>{
+            console.log(e);
+        })  
+    }   
     return (
         <div className='home'>
-
            <div className="header">
                <a href="http://localhost:3000/">🦁 JOBLION</a>
                <div className='search'>
-                   <input type="text" placeholder='NEW JOB, NEW ME'></input>
-                   
-                   <button type="submit">⌕</button>
+                   <input type="text" placeholder='확인하고 싶은 회사명을 적어주세요!'onChange={(e)=>{setSerchJob(e)}}></input>
+                   <button type="submit" onClick={()=>{navigate('/detail',{serchJob: serchJob}); serchJob();}}>⌕</button>
                </div>
                 <div className='join'>
-                    {/*로그인&회원가입&자소서창- 준호님 코드랑 연결해야됨*/}
-                   <button type='submit'>로그인</button>
-                   <button type="submit">회원가입</button>
+                   <button onClick={()=>{navigate('/login')}}>로그인</button>
+                   <button onClick={()=>{navigate('/signup')}}>회원가입</button>
                 </div>
             </div>
 
             <div className='banner'>
-               <h2>구인구직의 신세계로(가제)</h2>
+               <h2>구인구직의 신세계로</h2>
                <p>쉽고 빠르게 확인하는 채용공고</p>
                <button>지금 바로 자소서 작성하기</button>
            </div>
@@ -39,12 +52,12 @@ function Home(){
                 </div>
                 <div className='showcase'>
                 {companys.map((i)=>{
+                    getJobTitle(i);
                     return(
                         <div key={i} className='company'>
-                            <button id={i} onClick={()=>{
-                                window.open('http://localhost:3000/detail','채용공고','resizable=no width=1000 height=600');
-                            }}></button>
-                        </div>
+                            <button id={i} onClick={()=>{navigate('/detail',{showJob:id});showJob();}} 
+                            >{companyName}{position}</button>
+                        </div> 
                     )
                 })}
                 </div>
