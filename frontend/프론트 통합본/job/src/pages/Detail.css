@@ -23,32 +23,16 @@
 #title-name{
     font-size: 25px;
 }
-hr{
-    border-width: 1px 0 0 0;
-    border-color:#fff;
-    margin: 0 30px 0 30px;
-}
-.aquire{
-    margin-left: 30px;
-    margin-right: 300px;
-}
 #title{
     font-size: 16px;
     font-weight: bold;
 }
-#subtitle{
-    color:gray;
-}
-.condition{
-    margin-left: 30px;
-}
-.applyinfo{
-    margin-top: 30px;
+.btn{
     display: flex;
     flex-direction: row;
 }
-
-.detail>button{
+.btn>button{
+    margin-left: 10px;
     color:white;
     font-weight: bold;
     background-color:rgb(238, 127, 53);
