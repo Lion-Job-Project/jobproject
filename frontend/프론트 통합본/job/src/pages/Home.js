@@ -1,38 +1,39 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import './Home.css';
 import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 function Home(){
     const navigate = useNavigate();
-    const companys =  [1,2,3,4,5,6,7,8,9];
-
+    const [companys,setCompanys] = useState(['']);
     const [companyName,setCompanyName] = useState(['']);
     const [position,setPosition] = useState(['']);
-    const [serchJob,setSerchJob] = useState(['']);
+    const [searchJob,setSearchJob] = useState(['']);
 
-    const getJobTitle = (i) =>{
-        axios.get('http://localhost:8080/jobposts',{
-            params:{id:{i}}
-        })
+    useEffect(() =>{
+        axios.get('http://localhost:8080/jobposts')
         .then(res=>{
+            setCompanys(res.data.id);  
             setCompanyName(res.data.companyName);
             setPosition(res.data.position);
-         }) 
+        })
         .catch(e=>{
             console.log(e);
         })  
-    }   
+    })   
     return (
-        <div className='home'>
+        <div className='home'>       
            <div className="header">
                <a href="http://localhost:3000/">🦁 JOBLION</a>
                <div className='search'>
-                   <input type="text" placeholder='확인하고 싶은 회사명을 적어주세요!'onChange={(e)=>{setSerchJob(e)}}></input>
-                   <button type="submit" onClick={()=>{navigate('/detail',{serchJob: serchJob}); }}>⌕</button>
+                   <input type="text" placeholder='확인하고 싶은 회사명을 적어주세요!'onChange={(e)=>{
+                    let copy = [...searchJob];
+                    copy=e.target.value;
+                    setSearchJob(copy)}}></input>
+                   <button type="submit" onClick={()=>{navigate('/search_detail',{state:{searchJob: searchJob}});}}>⌕</button>
                </div>
                 <div className='join'>
-                   <button onClick={()=>{navigate('/login')}}>로그인</button>
+                   <button onClick={()=>{navigate('/login')}}>로그인</button> 
                    <button onClick={()=>{navigate('/signup')}}>회원가입</button>
                 </div>
             </div>
@@ -40,7 +41,7 @@ function Home(){
             <div className='banner'>
                <h2>구인구직의 신세계로</h2>
                <p>쉽고 빠르게 확인하는 채용공고</p>
-               <button>지금 바로 자소서 작성하기</button>
+               <button onClick={()=>{navigate('/resume')}}>지금 바로 자소서 작성하기</button>
            </div>
 
              <div className='content'>
@@ -51,11 +52,10 @@ function Home(){
                   }}>공고를 올리고 싶다면?</button>
                 </div>
                 <div className='showcase'>
-                {companys.map((i)=>{
-                    getJobTitle(i); {/*함수 외부에서 들고오는거 다시 해봐야 함 !!!!!!*/}
+                {companys.map((a,i)=>{
                     return(
                         <div key={i} className='company'>
-                            <button id={i} onClick={()=>{navigate('/detail',{showJob:i});}} 
+                            <button id={i} onClick={()=>{navigate('/show_detail',{state:{showJob: i}});}} 
                             >{companyName}{position}</button>
                         </div> 
                     )
