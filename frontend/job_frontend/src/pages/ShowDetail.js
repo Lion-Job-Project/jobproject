@@ -14,17 +14,17 @@ function ShowDetail(){
       const [companyName,setCompanyName] = useState(['']);
       const [position,setPosition] = useState(['']);
       const [description, setDescription] = useState(['']);
-      const [application, setApplication] = useState(['']);
+    
 
       useEffect (() =>{
-        axios.get("http://localhost:8080/jobposts",{
-          params:{id:show}
-        })
+        axios.get("http://localhost:8080/jobposts")
        .then(res=>{
-          setCompanyName(res.data.company_name);
-          setPosition(res.data.position);
-          setDescription(res.data.description);
-          setApplication(res.data.application_link);
+           const findId = res.data.id;
+           if(findId===show){
+            setCompanyName(res.data.companyName);
+            setPosition(res.data.position);
+            setDescription(res.data.description);
+           }
        }) 
        .catch(e=>{
          alert("오류!");
@@ -43,8 +43,7 @@ function ShowDetail(){
                <div className='applyinfo'>
                   <p id='title'>설명 {description}</p>
                   <p>{description}</p>
-                  <p id='title'>링크</p>
-                  <p>{application}</p>
+
                </div>
           </div>
           <div className='btn'>

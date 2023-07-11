@@ -1,10 +1,8 @@
 import React, {useState} from 'react';
 import './Post.css';
-import {useNavigate} from 'react-router-dom';
 import axios from 'axios';
 
 function Post(){
-    const navigate = useNavigate();
     const [input_name,set_inputName] = useState(['']);
     const [input_position, set_inputPosition] = useState(['']);
     const [input_description, set_inputDescription] = useState(['']);
