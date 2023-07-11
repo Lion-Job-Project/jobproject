@@ -13,11 +13,11 @@ public class UserService {
 
     public UserDto findOne(String name){
         User entity = userRepository.findUserByName(name);
-        return new UserDto(entity.getName(), entity.getUsername(), entity.getPassword());
+        return new UserDto(entity.getId(), entity.getName(), entity.getUsername(), entity.getPassword());
     }
     public UserDto save(UserDto dto){
         User saved = userRepository.save(new User(dto.getName(), dto.getUsername(), dto.getPassword()));
-        return new UserDto(saved.getName(), saved.getUsername(), saved.getPassword());
+        return new UserDto(saved.getId(), saved.getName(), saved.getUsername(), saved.getPassword());
     }
     public void deleteOne(String name){
         User entity = userRepository.findUserByName(name);

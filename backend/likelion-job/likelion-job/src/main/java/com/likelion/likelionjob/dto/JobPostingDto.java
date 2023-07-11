@@ -7,9 +7,11 @@ import lombok.Setter;
 
 @Getter
 @Setter
-@NoArgsConstructor
 @AllArgsConstructor
-public class ResumeRequestDto {
-    private String title;
-    private String content;
+@NoArgsConstructor
+public class JobPostingDto {
+    private Integer id;
+    private String companyName;
+    private String position;
+    private String description;
 }

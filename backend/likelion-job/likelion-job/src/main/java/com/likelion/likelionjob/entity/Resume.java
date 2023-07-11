@@ -14,19 +14,12 @@ public class Resume {
     @Id @GeneratedValue
     private Integer id;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id")
-    private User user ;
-
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "jobposting_id")
-    private JobPosting jobPosting;
+    private String title;
 
     private String content;
 
-    public Resume(User user, JobPosting jobPosting, String content) {
-        this.user = user;
-        this.jobPosting = jobPosting;
+    public Resume(String title, String content) {
+        this.title = title;
         this.content = content;
     }
 }
